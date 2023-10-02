@@ -8,14 +8,44 @@ const socketController = (socket) => {
 
     });
 
-    socket.on('enviar-mensaje', ( payload, callback ) => {
+    socket.emit( 'ultimo-ticket', ticketControl.ultimo );
+    socket.emit( 'estado-actual', ticketControl.ultimos4 );
+
+    socket.on('siguiente-ticket', ( payload, callback ) => {
         
-        const id = 123456789;
-        callback( id );
+        const siguiente = ticketControl.siguiente();
+        callback( siguiente );
 
-        socket.broadcast.emit('enviar-mensaje', payload );
+        //TODO: Notificar que hay un nuevo ticket pendiente de asignar
+    });
 
-    })
+    socket.on('atender-ticket', ( payload, callback ) => {
+        
+        const { escritorio } = payload;
+
+        if(!escritorio) {
+            return callback({
+                ok: false,
+                msg: 'El escritorio es obligatorio'
+            });
+        }
+
+        const ticket = ticketControl.atender( escritorio );
+        if(!ticket) {
+            return callback({
+                ok: false,
+                msg: 'Ya no hay tickets pendientes'
+            });
+        }
+        else {
+            socket.broadcast.emit( 'estado-actual', ticketControl.ultimos4 );
+            callback({ 
+                ok: true,
+                ticket
+            });
+        }
+        
+    });
 
 }
 

@@ -52,7 +52,7 @@ class TicketControl {
         this.ultimo += 1;
         this.tickets.push( new Ticket(this.ultimo, null) );
         this.guardarDB();
-        return 'Ticket ' + this.ticket.numero;
+        return this.ultimo;
     }
 
     atender( escritorio ) {
