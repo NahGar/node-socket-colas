@@ -17,6 +17,7 @@ const socketController = (socket) => {
         callback( siguiente );
 
         //TODO: Notificar que hay un nuevo ticket pendiente de asignar
+        socket.broadcast.emit('nuevos-en-cola', ticketControl.tickets.length );
     });
 
     socket.on('atender-ticket', ( payload, callback ) => {

@@ -3,6 +3,7 @@ const lblEscritorio = document.querySelector('#lblEscritorio');
 const btnAtender = document.querySelector('#btnAtender');
 const lblTicket = document.querySelector('#lblTicket');
 const divAlerta = document.querySelector('#divAlerta');
+const lblPendientes = document.querySelector('#lblPendientes');
 
 const searchParams = new URLSearchParams( window.location.search );
 
@@ -32,6 +33,9 @@ socket.on('disconnect', () => {
     btnAtender.disabled = true;
 });
 
+socket.on('nuevos-en-cola', ( cantTickets ) => {
+        
+});
 
 btnAtender.addEventListener( 'click', () => {
 
