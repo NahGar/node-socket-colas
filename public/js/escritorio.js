@@ -33,13 +33,19 @@ socket.on('disconnect', () => {
     btnAtender.disabled = true;
 });
 
-socket.on('nuevos-en-cola', ( cantTickets ) => {
-        
+socket.on('tickets-pendientes', ( cantTickets ) => {
+    if( cantTickets === 0 ) {
+        lblPendientes.innerText = '';
+    }
+    else {
+        lblPendientes.innerText = cantTickets;
+    }
+    
 });
 
 btnAtender.addEventListener( 'click', () => {
 
-    socket.emit( 'atender-ticket', { escritorio }, ( payload ) => {
+    socket.emit('atender-ticket', { escritorio }, ( payload ) => {
     
         if( !payload.ok ) {
             divAlerta.innerText = payload.msg;

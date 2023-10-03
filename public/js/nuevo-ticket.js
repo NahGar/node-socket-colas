@@ -9,7 +9,7 @@ socket.on('connect', () => {
     btnGenerarTicket.disabled = false;
 });
 
-socket.on( 'ultimo-ticket', ( ultimoTicket ) => {
+socket.on('ultimo-ticket', ( ultimoTicket ) => {
     lblNuevoTicket.innerText = 'Ticket: ' + ultimoTicket;
 });
 
