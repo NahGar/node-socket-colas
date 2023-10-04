@@ -12,6 +12,8 @@ const socket = io();
 
 socket.on('estado-actual', ( payload ) => {
 
+    //chrome bloquea, firefox también pero permite habilitar audio y video mediante
+    //un icono a la izquierda de la url
     const audio = new Audio('./audio/new-ticket.mp3');
     audio.play();
 
